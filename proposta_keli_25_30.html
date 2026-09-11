@@ -1,0 +1,346 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+div,span{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
+#app{padding:16px;background:#f3f4f6;border-radius:12px;}
+.ptabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.ptab{padding:7px 20px;border-radius:20px;border:2px solid #e5e7eb;background:#fff;color:#6b7280;cursor:pointer;font-size:13px;font-weight:600;}
+.ptab.on{background:#6b21a8;color:#fff;border-color:#6b21a8;}
+.stabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.stab{padding:5px 14px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;color:#6b7280;cursor:pointer;font-size:12px;}
+.stab.on{background:#6b21a8;color:#fff;}
+.sec{display:none;}.sec.on{display:block;}
+.hero{background:#3b0764;border-radius:12px;padding:18px 20px;margin-bottom:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}
+.h-lbl{font-size:10px;color:#d8b4fe;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.h-val{font-size:20px;font-weight:700;}
+.h-sub{font-size:10px;color:#a78bfa;margin-top:3px;}
+.info{border-radius:9px;padding:12px 15px;margin-bottom:14px;font-size:12px;line-height:1.85;}
+.ik{background:#fdf4ff;border:1px solid #e9d5ff;color:#6b21a8;}
+.ph-hd{margin:0 0 6px;}
+.ph-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.ph-s{font-size:11px;color:#9ca3af;margin-top:2px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:7px;margin-bottom:18px;}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:13px 14px;}
+.card.nc{border-left:3px solid #7c3aed;border-top-left-radius:0;border-bottom-left-radius:0;}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:3px;}
+.mon{font-size:14px;font-weight:600;color:#111;}
+.bdg{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.sub{font-size:10px;color:#9ca3af;margin-bottom:10px;}
+.hr{border:none;border-top:1px solid #f0f0f0;margin:7px 0;}
+.row{display:flex;justify-content:space-between;margin-bottom:4px;}
+.lbl{font-size:11px;color:#aaa;}
+.vbl{font-size:12px;font-weight:600;color:#1a56a0;}
+.vrd{font-size:12px;font-weight:600;color:#b91c1c;}
+.vzr{font-size:12px;color:#d1d5db;}
+.vgr{font-size:12px;font-weight:600;color:#059669;}
+.k-base{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:9px;padding:8px 10px;margin-top:7px;}
+.k-com{background:#fdf4ff;border:1px solid #e9d5ff;border-radius:9px;padding:8px 10px;margin-top:5px;}
+.k-total{background:#6b21a8;border-radius:9px;padding:9px 10px;margin-top:5px;display:flex;justify-content:space-between;align-items:center;}
+.k-row{display:flex;justify-content:space-between;align-items:baseline;}
+.smgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px;margin-top:8px;}
+.smc{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;}
+.smc.dest{background:#6b21a8;border-color:#6b21a8;}
+.sml{font-size:11px;color:#6b7280;margin-bottom:3px;}
+.sml.w{color:#d8b4fe;}
+.smv{font-size:18px;font-weight:700;}
+.smd{font-size:10px;color:#9ca3af;margin-top:2px;}
+.smd.w{color:#a78bfa;}
+.tbl{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:14px;}
+.tbl-hd{display:grid;background:#3b0764;padding:10px 14px;gap:6px;}
+.tbl-row{padding:10px 14px;gap:6px;border-top:1px solid #f3f4f6;display:grid;}
+</style>
+
+<div id="app">
+<div class="ptabs">
+  <button class="ptab on" id="btn-p1" onclick="showPlan(1)">💜 Fase 1 · Out/2026–Dez/2031 · 25%</button>
+  <button class="ptab" id="btn-p2" onclick="showPlan(2)">💜 Fase 2 · Jan/2032–Dez/2037 · 30%</button>
+</div>
+<div id="plan1">
+  <div class="stabs">
+    <button class="stab on" id="btn-p1e" onclick="showSec('p1','e')">Mês a mês</button>
+    <button class="stab" id="btn-p1r" onclick="showSec('p1','r')">Resumo por fase</button>
+    <button class="stab" id="btn-p1t" onclick="showSec('p1','t')">Totais</button>
+  </div>
+  <div id="p1e" class="sec on"></div>
+  <div id="p1r" class="sec"></div>
+  <div id="p1t" class="sec"></div>
+</div>
+<div id="plan2" style="display:none;">
+  <div class="stabs">
+    <button class="stab on" id="btn-p2e" onclick="showSec('p2','e')">Mês a mês</button>
+    <button class="stab" id="btn-p2r" onclick="showSec('p2','r')">Resumo por ano</button>
+    <button class="stab" id="btn-p2t" onclick="showSec('p2','t')">Totais 10 anos</button>
+  </div>
+  <div id="p2e" class="sec on"></div>
+  <div id="p2r" class="sec"></div>
+  <div id="p2t" class="sec"></div>
+</div>
+</div>
+
+<script>
+const MN=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const CNPJ=369,SV=2500,SV2=2500,PARC=801.61,MEMP=72;
+const COM_MED=2500,COM_MIN=1500,COM_MAX=3500;
+const KP1=0.25, KP2=0.30; // ← 25% e 30%
+
+function fd(v){return'R$\u00a0'+Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fr(v){return'R$\u00a0'+Math.round(Math.abs(v)).toLocaleString('pt-BR');}
+function aliq(f){return f<=18000?.06:f<=75000?.1026:f<=150000?.147:.195;}
+function npf(c){return Math.max(0,Math.ceil(c/4)-1);}
+
+function calcM(cli,isNew,ei,keliV,isP2){
+  const fat=cli*5000,a=aliq(fat),imp=Math.round(fat*a*100)/100;
+  const eq=npf(cli)*4000;
+  const salVend=isP2?(4*SV2):(keliV?0:SV);
+  const comVend=isP2?(isNew?COM_MED:0):((!keliV&&isNew)?COM_MED:0);
+  const parc=ei<MEMP?PARC:0;
+  const lucro=Math.round((fat-imp-eq-salVend-comVend-CNPJ-parc)*100)/100;
+  const kp=isP2?KP2:KP1;
+  const keliLucro=Math.round(lucro*kp*100)/100;
+  const keliCom=(!isP2&&keliV&&isNew)?COM_MED:0;
+  const keliComMin=(!isP2&&keliV&&isNew)?COM_MIN:0;
+  const keliComMax=(!isP2&&keliV&&isNew)?COM_MAX:0;
+  const keliTotal=Math.round((keliLucro+keliCom)*100)/100;
+  return{fat,imp,a,pf:npf(cli),eq,salVend,comVend,parc,lucro,keliLucro,keliCom,keliComMin,keliComMax,keliTotal,keliV};
+}
+
+// PLANO 1
+let c1=0,acc1=0,ei1=0;const P1=[];
+['Out','Nov','Dez'].forEach((m,i)=>{
+  let isNew=false;
+  if(i===0){c1++;isNew=true;acc1=0;}
+  else{acc1+=1;if(acc1>=2.5){c1++;isNew=true;acc1=0;}}
+  P1.push({label:m+'/26',cli:c1,isNew,ei:ei1,...calcM(c1,isNew,ei1,true,false)});ei1++;
+});
+for(let i=0;i<12;i++){acc1+=1;let isNew=false;if(acc1>=2.5){c1++;isNew=true;acc1=0;}P1.push({label:MN[i]+'/27',cli:c1,isNew,ei:ei1,...calcM(c1,isNew,ei1,true,false)});ei1++;}
+for(let i=0;i<12;i++){acc1+=1;let isNew=false;if(acc1>=2.5){c1++;isNew=true;acc1=0;}P1.push({label:MN[i]+'/28',cli:c1,isNew,ei:ei1,...calcM(c1,isNew,ei1,false,false)});ei1++;}
+['29','30','31'].forEach(yr=>{for(let i=0;i<12;i++){acc1+=1;let isNew=false;if(acc1>=2.5){c1++;isNew=true;acc1=0;}P1.push({label:MN[i]+'/'+yr,cli:c1,isNew,ei:ei1,...calcM(c1,isNew,ei1,false,false)});ei1++;}});
+
+// PLANO 2
+let c2=c1,acc2=0,ei2=ei1;const P2=[];
+['32','33','34','35','36','37'].forEach(yr=>{for(let mi=0;mi<12;mi++){acc2+=1;let isNew=false;if(acc2>=2.5){c2++;isNew=true;acc2=0;}P2.push({label:MN[mi]+'/'+yr,cli:c2,isNew,ei:ei2,...calcM(c2,isNew,ei2,false,true)});ei2++;}});
+
+const CA1=['#1D4ED8','#6D28D9','#065F46','#92400E'];
+const CB1=[['#dbeafe','#1e3a8a'],['#ede9fe','#4c1d95'],['#d1fae5','#064e3b'],['#fef3c7','#78350f']];
+const CA2=['#0369A1','#0F766E','#7C3AED','#B45309','#334155','#BE123C'];
+const CB2=[['#e0f2fe','#0c4a6e'],['#ccfbf1','#134e4a'],['#ede9fe','#4c1d95'],['#fef3c7','#78350f'],['#e2e8f0','#334155'],['#ffe4e6','#881337']];
+const YRL=['2032','2033','2034','2035','2036','2037'];
+
+function mkCard(m,ac,bi,isP2){
+  const pct=(m.a*100).toFixed(2)+'%',lOk=m.lucro>=0;
+  const div=document.createElement('div');
+  div.className='card'+(m.isNew?' nc':'');
+  const badges=m.isNew
+    ?`<span class="bdg" style="background:${bi[0]};color:${bi[1]};">+1 cliente</span>`+
+     (!isP2&&m.keliV?`<span class="bdg" style="background:#fdf4ff;color:#6b21a8;">Keli fechou!</span>`:`<span class="bdg" style="background:#fff7ed;color:#c2410c;">comissão</span>`):'';
+  const sub=isP2?`${m.cli} cli · ${m.pf===0?'só André':m.pf+' func.'} · 4 vendedores`:`${m.cli} cli · ${m.keliV?'Keli realiza as vendas':'vendedor contratado'}`;
+  const eqR=m.eq>0?`<div class="row"><span class="lbl">Equipe técnica</span><span class="vrd">−${fd(m.eq)}</span></div>`:`<div class="row"><span class="lbl">Equipe técnica</span><span class="vzr">R$ 0</span></div>`;
+  const vendRow=isP2?`<div class="row"><span class="lbl">Sal. vendedores (4×R$2.500)</span><span class="vrd">−${fd(m.salVend)}</span></div>`
+    :(m.keliV?`<div class="row"><span class="lbl">Vendedor</span><span style="font-size:12px;color:#7c3aed;font-weight:600;">Keli (sem custo)</span></div>`
+      :`<div class="row"><span class="lbl">Sal. vendedor</span><span class="vrd">−${fd(m.salVend)}</span></div>`);
+  const comRow=m.comVend>0?`<div class="row"><span class="lbl">Comissão vendedor</span><span style="font-size:12px;font-weight:600;color:#c2410c;">−${fd(m.comVend)}</span></div>`:`<div class="row"><span class="lbl">Comissão vendedor</span><span class="vzr">—</span></div>`;
+  const empRow=m.parc>0?`<div class="row"><span class="lbl">Parcela emprést. (72x)</span><span style="font-size:12px;font-weight:600;color:#b45309;">−${fd(m.parc)}</span></div>`:`<div class="row"><span class="lbl">Empréstimo</span><span class="vgr">✓ Quitado</span></div>`;
+  const lbg=lOk?'background:#f0fdf4;border:1px solid #bbf7d0;':'background:#fef2f2;border:1px solid #fca5a5;';
+  const lcl=lOk?'#0a6640':'#b91c1c';
+  const kpct=isP2?'30%':'25%';
+
+  const baseBox=`<div class="k-base"><div class="k-row"><span style="font-size:11px;font-weight:600;color:#5b21b6;">${kpct} do lucro líquido</span><span style="font-size:14px;font-weight:700;color:#6d28d9;">${fd(m.keliLucro)}</span></div></div>`;
+  const comBox=m.keliCom>0
+    ?`<div class="k-com"><div class="k-row"><span style="font-size:11px;font-weight:600;color:#7e22ce;">+ Comissão da venda (5%)</span><span style="font-size:14px;font-weight:700;color:#7c3aed;">+${fd(m.keliCom)}</span></div><div style="font-size:9px;color:#a78bfa;margin-top:3px;">Intervalo: +${fd(m.keliComMin)} a +${fd(m.keliComMax)}</div></div>`:'';
+  const totalBox=m.keliCom>0?`<div class="k-total"><span style="font-size:12px;font-weight:700;color:#e9d5ff;">TOTAL KELI NO MÊS</span><span style="font-size:16px;font-weight:700;color:#fff;">${fd(m.keliTotal)}</span></div>`:'';
+
+  div.innerHTML=
+    `<div class="top"><span class="mon">${m.label}</span><span style="display:flex;gap:3px;flex-wrap:wrap;">${badges}</span></div>`+
+    `<div class="sub">${sub}</div>`+
+    `<div class="row"><span class="lbl">Faturamento</span><span class="vbl">${fd(m.fat)}</span></div>`+
+    `<div class="hr"></div>`+
+    `<div class="row"><span class="lbl">Simples (${pct})</span><span class="vrd">−${fd(m.imp)}</span></div>`+
+    eqR+vendRow+comRow+empRow+
+    `<div class="row"><span class="lbl">CNPJ/contador</span><span class="vrd">−${fd(CNPJ)}</span></div>`+
+    `<div style="${lbg};border-radius:8px;padding:6px 9px;margin-top:6px;display:flex;justify-content:space-between;"><span style="font-size:11px;font-weight:500;color:${lcl};">Lucro líquido empresa</span><span style="font-size:13px;font-weight:700;color:${lcl};">${lOk?fd(m.lucro):'−'+fd(Math.abs(m.lucro))}</span></div>`+
+    `<div class="hr"></div>`+baseBox+comBox+totalBox;
+  return div;
+}
+
+function mkPhase(title,sub,data,ac,bi,isP2){
+  const wrap=document.createElement('div');
+  const hd=document.createElement('div');hd.className='ph-hd';
+  const tK=data.reduce((s,m)=>s+m.keliTotal,0),tKC=data.reduce((s,m)=>s+m.keliCom,0);
+  hd.innerHTML=`<div class="ph-t" style="color:${ac};">${title}</div>`+`<div class="ph-s">${sub} · Keli recebe: ${fr(tK)}${tKC>0?' (incl. comissões '+fr(tKC)+')':''}</div>`;
+  wrap.appendChild(hd);
+  const grid=document.createElement('div');grid.className='grid';
+  data.forEach(m=>grid.appendChild(mkCard(m,ac,bi,isP2)));
+  wrap.appendChild(grid);return wrap;
+}
+
+function mkSm(items){
+  const g=document.createElement('div');g.className='smgrid';
+  items.forEach(it=>{const d=document.createElement('div');d.className='smc'+(it.dest?' dest':'');d.innerHTML=`<div class="sml${it.dest?' w':''}">${it.l}</div><div class="smv" style="color:${it.c};">${it.v}</div><div class="smd${it.dest?' w':''}">${it.d}</div>`;g.appendChild(d);});
+  return g;
+}
+
+function mkHero(items){
+  const h=document.createElement('div');h.className='hero';
+  items.forEach(it=>{const d=document.createElement('div');d.innerHTML=`<div class="h-lbl">${it.l}</div><div class="h-val" style="color:${it.c};">${it.v}</div><div class="h-sub">${it.s}</div>`;h.appendChild(d);});
+  return h;
+}
+
+function buildP1E(){
+  const el=document.getElementById('p1e');
+  const info=document.createElement('div');info.className='info ik';
+  info.innerHTML='<strong>Proposta para Keli 💜 — Fase 1 (Out/2026–Dez/2031)</strong><br>'+
+    '· <strong>Out/2026–Dez/2027:</strong> Keli realiza as vendas → <strong>25% do lucro líquido + comissão da venda (R$1.500–R$3.500)</strong><br>'+
+    '· <strong>Jan/2028 em diante:</strong> vendedor contratado assume → Keli recebe apenas <strong>25% do lucro líquido</strong><br>'+
+    '· Keli não faz nenhum aporte financeiro — contribuição exclusivamente pelo trabalho comercial';
+  el.appendChild(info);
+  el.appendChild(mkPhase('Out–Dez/2026 · Keli vende','Início · 25% lucro + comissão por venda',P1.slice(0,3),CA1[0],CB1[0],false));
+  el.appendChild(mkPhase('Jan–Dez/2027 · Keli vende','25% do lucro + comissão por cada cliente fechado',P1.slice(3,15),CA1[1],CB1[1],false));
+  el.appendChild(mkPhase('Jan–Dez/2028 · Vendedor contratado','Keli recebe apenas 25% do lucro líquido',P1.slice(15,27),CA1[2],CB1[2],false));
+  el.appendChild(mkPhase('Jan/2029–Dez/2031 · Vendedor contratado','Keli recebe 25% do lucro líquido mensalmente',P1.slice(27),CA1[3],CB1[3],false));
+}
+
+function buildP1R(){
+  const el=document.getElementById('p1r');
+  const tKtot=P1.reduce((s,m)=>s+m.keliTotal,0),tKC=P1.reduce((s,m)=>s+m.keliCom,0),tKL=P1.reduce((s,m)=>s+m.keliLucro,0),last=P1[P1.length-1];
+  el.appendChild(mkHero([
+    {l:'Keli começa a receber',v:'Out/2026',s:'1º mês da empresa',c:'#c084fc'},
+    {l:'Keli vende até',v:'Dez/2027',s:'15 meses como vendedora',c:'#e879f9'},
+    {l:'25% lucro acumulado',v:fr(tKL),s:'63 meses de participação',c:'#a78bfa'},
+    {l:'Comissões acumuladas',v:fr(tKC),s:'Out/26–Dez/27 · média R$2.500/venda',c:'#f0abfc'},
+    {l:'KELI TOTAL 2026–2031',v:fr(tKtot),s:'Lucro + comissões · sem investir nada',c:'#34d399'},
+    {l:'Keli recebe Dez/2031',v:fd(last.keliLucro),s:'25% mensal · '+last.cli+' clientes',c:'#fbbf24'},
+  ]));
+  const cols='1.4fr 1fr 1fr 1fr 1fr';
+  const tbl=document.createElement('div');tbl.className='tbl';
+  const hdr=document.createElement('div');hdr.className='tbl-hd';hdr.style.gridTemplateColumns=cols;
+  ['Fase','Período','Clientes','25% do lucro','Comissões de venda'].forEach(h=>{const s=document.createElement('span');s.style.cssText='font-size:11px;font-weight:600;color:#d8b4fe;';s.textContent=h;hdr.appendChild(s);});
+  tbl.appendChild(hdr);
+  [['Out–Dez/2026',0,3,CA1[0],'Keli vende'],['Jan–Dez/2027',3,15,CA1[1],'Keli vende'],['Jan–Dez/2028',15,27,CA1[2],'Vend. contratado'],['Jan/2029–Dez/2031',27,63,CA1[3],'Vend. contratado']].forEach(([per,a,b,cor,qv],i)=>{
+    const ph=P1.slice(a,b),tKf=ph.reduce((s,m)=>s+m.keliTotal,0),tKCf=ph.reduce((s,m)=>s+m.keliCom,0),tKLf=ph.reduce((s,m)=>s+m.keliLucro,0);
+    const row=document.createElement('div');row.className='tbl-row';row.style.gridTemplateColumns=cols;row.style.background=i%2===0?'#f9fafb':'#fff';
+    [`<span style="font-size:13px;font-weight:700;color:${cor};">Fase ${i+1}<br><span style="font-size:10px;color:#6b7280;font-weight:400;">${qv}</span></span>`,
+     `<span style="font-size:11px;color:#6b7280;">${per}<br>${ph[0].cli}→${ph[ph.length-1].cli} cli.</span>`,
+     `<span style="font-size:12px;color:#111;">${ph.length} meses</span>`,
+     `<span style="font-size:13px;font-weight:700;color:#6d28d9;">${fr(tKLf)}</span>`,
+     `<span style="font-size:13px;font-weight:700;color:${tKCf>0?'#7c3aed':'#d1d5db'};">${tKCf>0?fr(tKCf):'—'}</span>`,
+    ].forEach(h=>{const d=document.createElement('div');d.innerHTML=h;row.appendChild(d);});
+    tbl.appendChild(row);
+  });
+  const tot=document.createElement('div');tot.className='tbl-row';tot.style.gridTemplateColumns=cols;tot.style.background='#3b0764';
+  [`<span style="font-size:12px;font-weight:700;color:#fff;">TOTAL</span>`,`<span style="font-size:11px;color:#d8b4fe;">63 meses</span>`,`<span style="font-size:11px;color:#d8b4fe;">${P1[P1.length-1].cli} cli.</span>`,`<span style="font-size:13px;font-weight:700;color:#c084fc;">${fr(tKL)}</span>`,`<span style="font-size:13px;font-weight:700;color:#f0abfc;">${fr(tKC)}</span>`].forEach(h=>{const d=document.createElement('div');d.innerHTML=h;tot.appendChild(d);});
+  tbl.appendChild(tot);el.appendChild(tbl);
+  el.appendChild(mkSm([
+    {l:'25% do lucro acumulado',v:fr(tKL),d:'63 meses de participação',c:'#6d28d9',dest:false},
+    {l:'Comissões de venda',v:fr(tKC),d:'Out/2026–Dez/2027',c:'#7c3aed',dest:false},
+    {l:'TOTAL KELI 2026–2031',v:fr(tKtot),d:'Sem investir nenhum centavo',c:'#fff',dest:true},
+    {l:'Keli recebe Dez/2031',v:fd(last.keliLucro),d:'25% do lucro mensal · '+last.cli+' clientes',c:'#6d28d9',dest:false},
+  ]));
+}
+
+function buildP1T(){
+  const el=document.getElementById('p1t');
+  const tKtot=P1.reduce((s,m)=>s+m.keliTotal,0),tKC=P1.reduce((s,m)=>s+m.keliCom,0),tKL=P1.reduce((s,m)=>s+m.keliLucro,0),last=P1[P1.length-1];
+  el.appendChild(mkHero([
+    {l:'TOTAL KELI · FASE 1',v:fr(tKtot),s:'Out/2026–Dez/2031 · 63 meses',c:'#34d399'},
+    {l:'25% lucro acumulado',v:fr(tKL),s:'Participação nos lucros',c:'#c084fc'},
+    {l:'Comissões de venda',v:fr(tKC),s:'Out/26–Dez/27 · vendas realizadas',c:'#f0abfc'},
+    {l:'Aporte financeiro',v:'R$ 0,00',s:'Zero investimento · só trabalho',c:'#6ee7b7'},
+    {l:'Recebe em Out/2026',v:fd(P1[0].keliTotal),s:'25% + comissão da 1ª venda',c:'#fbbf24'},
+    {l:'Recebe em Dez/2031',v:fd(last.keliLucro),s:'25% mensal · '+last.cli+' clientes',c:'#fbbf24'},
+  ]));
+  const anos=[['Out–Dez/2026',P1.slice(0,3)],['2027',P1.slice(3,15)],['2028',P1.slice(15,27)],['2029',P1.slice(27,39)],['2030',P1.slice(39,51)],['2031',P1.slice(51,63)]];
+  const cols='1fr 1fr 1fr 1fr';
+  const tbl=document.createElement('div');tbl.className='tbl';
+  const hdr=document.createElement('div');hdr.className='tbl-hd';hdr.style.gridTemplateColumns=cols;
+  ['Período','Clientes','Keli 25% lucro','Comissões'].forEach(h=>{const s=document.createElement('span');s.style.cssText='font-size:11px;font-weight:600;color:#d8b4fe;';s.textContent=h;hdr.appendChild(s);});
+  tbl.appendChild(hdr);
+  anos.forEach(([ano,ph],i)=>{
+    const tKLf=ph.reduce((s,m)=>s+m.keliLucro,0),tKCf=ph.reduce((s,m)=>s+m.keliCom,0);
+    const row=document.createElement('div');row.className='tbl-row';row.style.gridTemplateColumns=cols;row.style.background=i%2===0?'#f9fafb':'#fff';
+    [`<span style="font-size:13px;font-weight:700;color:#6b21a8;">${ano}</span>`,`<span style="font-size:12px;color:#111;">${ph[0].cli}→${ph[ph.length-1].cli} cli.</span>`,`<span style="font-size:13px;font-weight:700;color:#6d28d9;">${fr(tKLf)}</span>`,`<span style="font-size:13px;font-weight:700;color:${tKCf>0?'#7c3aed':'#d1d5db'};">${tKCf>0?'+'+fr(tKCf):'—'}</span>`].forEach(h=>{const d=document.createElement('div');d.innerHTML=h;row.appendChild(d);});
+    tbl.appendChild(row);
+  });
+  const tot=document.createElement('div');tot.className='tbl-row';tot.style.gridTemplateColumns=cols;tot.style.background='#3b0764';
+  [`<span style="font-size:12px;font-weight:700;color:#fff;">TOTAL</span>`,`<span style="font-size:11px;color:#d8b4fe;">${last.cli} cli.</span>`,`<span style="font-size:13px;font-weight:700;color:#c084fc;">${fr(tKL)}</span>`,`<span style="font-size:13px;font-weight:700;color:#f0abfc;">${fr(tKC)}</span>`].forEach(h=>{const d=document.createElement('div');d.innerHTML=h;tot.appendChild(d);});
+  tbl.appendChild(tot);el.appendChild(tbl);
+}
+
+function buildP2E(){
+  const el=document.getElementById('p2e');
+  const info=document.createElement('div');info.className='info ik';
+  info.innerHTML='<strong>Proposta para Keli 💜 — Fase 2 (Jan/2032–Dez/2037)</strong><br>'+
+    '· Keli passa a receber <strong>30% do lucro líquido mensalmente</strong><br>'+
+    '· 4 vendedores contratados realizam as vendas (R$2.500/mês cada)<br>'+
+    '· Keli <strong>não recebe comissões</strong> nesta fase — apenas 30% do lucro · Nenhum aporte financeiro';
+  el.appendChild(info);
+  ['32','33','34','35','36','37'].forEach((yr,yi)=>{
+    const pd=P2.slice(yi*12,(yi+1)*12);
+    el.appendChild(mkPhase(YRL[yi],`${pd[0].cli}→${pd[11].cli} clientes · 4 vendedores · Keli recebe 30% do lucro`,pd,CA2[yi],CB2[yi],true));
+  });
+}
+
+function buildP2R(){
+  const el=document.getElementById('p2r');
+  const tK2=P2.reduce((s,m)=>s+m.keliTotal,0),last=P2[P2.length-1],tK1=P1.reduce((s,m)=>s+m.keliTotal,0);
+  el.appendChild(mkHero([
+    {l:'KELI TOTAL FASE 2',v:fr(tK2),s:'Jan/2032–Dez/2037 · 30% lucro',c:'#34d399'},
+    {l:'Participação',v:'30%',s:'Do lucro líquido mensal',c:'#c084fc'},
+    {l:'Aporte financeiro',v:'R$ 0,00',s:'Zero investimento nesta fase',c:'#6ee7b7'},
+    {l:'Keli em Jan/2032',v:fd(P2[0].keliTotal),s:'30% · '+P2[0].cli+' clientes',c:'#fbbf24'},
+    {l:'Keli em Dez/2037',v:fd(last.keliTotal),s:'30% · '+last.cli+' clientes',c:'#fbbf24'},
+    {l:'KELI TOTAL 10 ANOS',v:fr(tK1+tK2),s:'2026–2037 · lucro + comissões fase 1',c:'#f0abfc'},
+  ]));
+  const cols='1fr 1fr 1fr';
+  const tbl=document.createElement('div');tbl.className='tbl';
+  const hdr=document.createElement('div');hdr.className='tbl-hd';hdr.style.gridTemplateColumns=cols;
+  ['Ano','Clientes','Keli 30% lucro'].forEach(h=>{const s=document.createElement('span');s.style.cssText='font-size:11px;font-weight:600;color:#d8b4fe;';s.textContent=h;hdr.appendChild(s);});
+  tbl.appendChild(hdr);
+  ['32','33','34','35','36','37'].forEach((yr,yi)=>{
+    const ph=P2.slice(yi*12,(yi+1)*12),tKf=ph.reduce((s,m)=>s+m.keliTotal,0);
+    const row=document.createElement('div');row.className='tbl-row';row.style.gridTemplateColumns=cols;row.style.background=yi%2===0?'#f9fafb':'#fff';
+    [`<span style="font-size:13px;font-weight:700;color:${CA2[yi]};">${YRL[yi]}</span>`,`<span style="font-size:12px;color:#111;">${ph[0].cli}→${ph[11].cli} cli.</span>`,`<span style="font-size:14px;font-weight:700;color:#6d28d9;">${fr(tKf)}</span>`].forEach(h=>{const d=document.createElement('div');d.innerHTML=h;row.appendChild(d);});
+    tbl.appendChild(row);
+  });
+  const tot=document.createElement('div');tot.className='tbl-row';tot.style.gridTemplateColumns=cols;tot.style.background='#3b0764';
+  [`<span style="font-size:12px;font-weight:700;color:#fff;">TOTAL</span>`,`<span style="font-size:11px;color:#d8b4fe;">${last.cli} clientes</span>`,`<span style="font-size:14px;font-weight:700;color:#c084fc;">${fr(tK2)}</span>`].forEach(h=>{const d=document.createElement('div');d.innerHTML=h;tot.appendChild(d);});
+  tbl.appendChild(tot);el.appendChild(tbl);
+}
+
+function buildP2T(){
+  const el=document.getElementById('p2t');
+  const tK1=P1.reduce((s,m)=>s+m.keliTotal,0),tKC1=P1.reduce((s,m)=>s+m.keliCom,0),tKL1=P1.reduce((s,m)=>s+m.keliLucro,0);
+  const tK2=P2.reduce((s,m)=>s+m.keliTotal,0),last=P2[P2.length-1];
+  el.appendChild(mkHero([
+    {l:'KELI TOTAL 10 ANOS',v:fr(tK1+tK2),s:'Out/2026–Dez/2037 · 135 meses',c:'#34d399'},
+    {l:'Fase 1 (25% + comissões)',v:fr(tK1),s:'Out/2026–Dez/2031',c:'#c084fc'},
+    {l:'Fase 2 (30% lucro)',v:fr(tK2),s:'Jan/2032–Dez/2037',c:'#f0abfc'},
+    {l:'Comissões totais',v:fr(tKC1),s:'Fase 1 · Out/26–Dez/27',c:'#e879f9'},
+    {l:'Total investido por Keli',v:'R$ 0,00',s:'Contribuição exclusivamente pelo trabalho',c:'#6ee7b7'},
+    {l:'Keli recebe Dez/2037',v:fd(last.keliTotal),s:'30% mensal · '+last.cli+' clientes',c:'#fbbf24'},
+  ]));
+  el.appendChild(mkSm([
+    {l:'Keli: 25% lucro (2026–2031)',v:fr(tKL1),d:'63 meses de participação',c:'#6d28d9',dest:false},
+    {l:'Keli: comissões de venda',v:fr(tKC1),d:'Out/2026–Dez/2027 · fase comercial',c:'#7c3aed',dest:false},
+    {l:'Keli: total fase 1',v:fr(tK1),d:'Lucro + comissões · 2026–2031',c:'#6d28d9',dest:false},
+    {l:'Keli: 30% lucro (2032–2037)',v:fr(tK2),d:'72 meses · fase de crescimento',c:'#6d28d9',dest:false},
+    {l:'KELI TOTAL 10 ANOS',v:fr(tK1+tK2),d:'Sem investir nenhum centavo',c:'#fff',dest:true},
+    {l:'Aporte total de Keli',v:'R$ 0,00',d:'Contribuição: trabalho comercial e parcerias',c:'#059669',dest:false},
+  ]));
+}
+
+function showPlan(n){
+  document.getElementById('plan1').style.display=n===1?'block':'none';
+  document.getElementById('plan2').style.display=n===2?'block':'none';
+  document.getElementById('btn-p1').className='ptab'+(n===1?' on':'');
+  document.getElementById('btn-p2').className='ptab'+(n===2?' on':'');
+}
+function showSec(plan,sec){
+  ['e','r','t'].forEach(s=>{
+    const el=document.getElementById(plan+s);if(el)el.className='sec'+(s===sec?' on':'');
+    const btn=document.getElementById('btn-'+plan+s);if(btn)btn.className='stab'+(s===sec?' on':'');
+  });
+}
+
+buildP1E();buildP1R();buildP1T();
+buildP2E();buildP2R();buildP2T();
+</script>
